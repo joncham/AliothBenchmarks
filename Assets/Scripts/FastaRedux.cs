@@ -15,7 +15,7 @@ static class FastaRedux
 		AccumulateAndScale(HomoSapiens);
 		AccumulateAndScale(IUB);
 		int n = args.Length > 0 ? Int32.Parse (args[0]) : 2500000;
-		using (Stream s = Console.OpenStandardOutput ()) {
+		using (Stream s = new MemoryStream(10000)) {
 			s.WriteRepeatFasta("ONE", "Homo sapiens alu",
 				Encoding.ASCII.GetBytes(ALU), n*2);
 			s.WriteRandomFasta("TWO", "IUB ambiguity codes",

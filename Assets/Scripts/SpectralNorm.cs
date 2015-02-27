@@ -5,6 +5,7 @@
 */
 
 using System;
+using UnityEngine;
 
 class SpectralNorm
 {
@@ -12,7 +13,7 @@ class SpectralNorm
 		int n = 100;
 		if (args.Length > 0) n = Int32.Parse(args[0]);
 
-		Console.WriteLine("{0:f9}", new SpectralNorm().Approximate(n));
+		Debug.Log(string.Format("{0:f9}", new SpectralNorm().Approximate(n)));
 	}
 
 	double Approximate(int n) {

@@ -35,7 +35,7 @@ static class revcomp
 		var b = new Block { Count = -1 };
 		Index line = Index.None, start = Index.None, end = Index.None;
 		using (var r = new BinaryReader(Console.OpenStandardInput())) {
-			using (var w = Console.OpenStandardOutput()) {
+		using (Stream w = new MemoryStream(10000)) {
 				while (b.Read(r) > 0) {
 					seq.Add(b.Data);
 					if (line.Pos < 0) line = b.IndexOf(Gt, 0);

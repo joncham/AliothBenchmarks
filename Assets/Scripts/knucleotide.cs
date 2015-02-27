@@ -12,6 +12,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using UnityEngine;
 
 public class knucleotide
 {
@@ -47,7 +48,7 @@ public class knucleotide
 		foreach (Thread t in threads)
 			t.Join();
 		foreach (string s in result)
-			Console.Out.WriteLine(s);
+			Debug.Log(s);
 	}
 
 	private static void worker()

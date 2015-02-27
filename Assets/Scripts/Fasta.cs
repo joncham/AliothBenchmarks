@@ -17,7 +17,7 @@ class Fasta
 
 		int n = args.Length > 0 ? Int32.Parse (args[0]) : 1000;
 
-		using (Stream s = Console.OpenStandardOutput ()) {
+		using (Stream s = new MemoryStream(10000)) {
 			MakeRepeatFasta ("ONE", "Homo sapiens alu", Encoding.ASCII.GetBytes (ALU), n*2, s);
 			MakeRandomFasta ("TWO", "IUB ambiguity codes", IUB, n*3, s);
 			MakeRandomFasta ("THREE", "Homo sapiens frequency", HomoSapiens, n*5, s);
