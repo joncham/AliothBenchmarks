@@ -21,37 +21,49 @@ public class TestRunner : MonoBehaviour
 	{
 		stopwatch = new Stopwatch ();
 		tests = new List<TestData> ();
-		tests.Add (new TestData() {Name = "NBody", Main=NBody.Main, Args=new[] {"50000000"}});
-		tests.Add (new TestData() {Name = "FannkuchRedux", Main=FannkuchRedux.Main, Args=new[] {"12"}});
+		tests.Add (new TestData { Name = "NBody", Main = NBody.Main, Args = new[] { "50000000" } });
+		tests.Add (new TestData { Name = "FannkuchRedux", Main = FannkuchRedux.Main, Args = new[] { "12" } });
 		//tests.Add (new TestData() {Name = "pidigits", Main=pidigits.Main, Args=new[] {"12"}});
-		//tests.Add (new TestData() {Name = "Mandelbrot", Main=FannkuchRedux.Main, Args=new[] {"12"}});
-		tests.Add (new TestData() {Name = "FastaRedux", Main=FastaRedux.Main, Args=new[] {"25000000"}});
-		tests.Add (new TestData() {Name = "BinaryTrees", Main=BinaryTrees.Main, Args=new[] {"20"}});
-		tests.Add (new TestData() {Name = "Fasta", Main=Fasta.Main, Args=new[] {"25000000"}});
+		tests.Add (new TestData { Name = "Mandelbrot", Main = MandelBrot.Main, Args = new[] { "16000" } });
+		tests.Add (new TestData { Name = "FastaRedux", Main = FastaRedux.Main, Args = new[] { "25000000" } });
+		tests.Add (new TestData { Name = "BinaryTrees", Main = BinaryTrees.Main, Args = new[] { "20" } });
+		tests.Add (new TestData { Name = "Fasta", Main = Fasta.Main, Args = new[] { "25000000" } });
 		//tests.Add (new TestData() {Name = "revcomp", Main=revcomp.Main, Args=new[] {"25000000"}});
-		tests.Add (new TestData() {Name = "SpectralNorm", Main=SpectralNorm.Main, Args=new[] {"5500"}});
+		tests.Add (new TestData { Name = "SpectralNorm", Main = SpectralNorm.Main, Args = new[] { "5500" } });
 		//tests.Add (new TestData() {Name = "regexdna", Main=SpectralNorm.Main, Args=new[] {"5500"}});
+		//tests.Add (new TestData() {Name = "knucleotide", Main=SpectralNorm.Main, Args=new[] {"5500"}});
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		//NBody.Main (new string[] {"50000000"});
 	}
 
-	void OnGUI()
+	void OnGUI ()
 	{
+		if (GUILayout.Button("Run All"))
+		{
+			for (var i = 0; i < tests.Count; i++)
+				RunTest(tests[i]);
+		}
+
 		for (var i = 0; i < tests.Count; i++)
 		{
-			var test = tests [i];
-			if (GUILayout.Button (test.Name)) {
-				System.GC.Collect ();
-				stopwatch.Reset ();
-				stopwatch.Start ();
-				test.Main (test.Args);
-				stopwatch.Stop ();
-				test.Milliseconds = "Ellapsed MS: " + stopwatch.ElapsedMilliseconds.ToString ();
-			}
+			var test = tests[i];
+			if (GUILayout.Button(test.Name))
+				RunTest(test);
 			GUILayout.Label (test.Milliseconds);
 		}
+	}
+
+	private void RunTest(TestData test)
+	{
+		System.GC.Collect();
+		stopwatch.Reset();
+		stopwatch.Start();
+		test.Main(test.Args);
+		stopwatch.Stop();
+		test.Milliseconds = "Ellapsed MS: " + stopwatch.ElapsedMilliseconds;
 	}
 }
